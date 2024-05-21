@@ -78,9 +78,9 @@ Since workers differ only in their draws of ${b_(i n omega)}_(i, n in cal(L))$ o
     &eq.def (w_n / kappa_(i n))^(theta) \
     "and" Phi_i
     &eq.def sum_(k in cal(L)) phi_(i k).
-  $<eqn:commute-probability>
+  $<eqn:mA-commute-probability>
 
-#cite(<train_2003>, form: "prose"), especially the first three chapters, is an excellent resource on discrete choice models. If you are unfamiliar with the result in @eqn:commute-probability, I recommend starting there. You can access the book at #link("https://eml.berkeley.edu/books/choice2.html")[https://eml.berkeley.edu/books/choice2.html].#footnote[I welcome your feedback. Would it be useful to include the derivation of @eqn:commute-probability here?]
+#cite(<train_2003>, form: "prose"), especially the first three chapters, is an excellent resource on discrete choice models. If you are unfamiliar with the result in @eqn:mA-commute-probability, I recommend starting there. You can access the book at #link("https://eml.berkeley.edu/books/choice2.html")[https://eml.berkeley.edu/books/choice2.html].#footnote[I welcome your feedback. Would it be useful to include the derivation of @eqn:mA-commute-probability here?]
 
 // CM: add a discrete choice citation
 
@@ -107,12 +107,14 @@ We assume that capital owners spend all their rental income in the city so that 
 For the commuting market to clear, labor demand in location $n$ must equal labor supply to location $n$ across all residential locations $i$:
   $
     L_n = sum_(i in cal(L)) pi_(i n | i) R_i.
-  $<eqn:commuting-clearing>
-We can substitute @eqn:commute-probability and @eqn:mA-wages into this expression to obtain an equilibrium characterization:
+  $<eqn:mA-commuting-clearing>
+We can substitute @eqn:mA-commute-probability and @eqn:mA-wages into this expression to obtain an equilibrium characterization:
   $
     underbrace(((beta A_n) / w_n)^(1 / (1 - beta)), "Labor Demand")
     = underbrace(sum_(i in cal(L)) phi_(i n) Phi_i^(-1) R_i, "Labor Supply").
-  $<eqn:commuting-equilibrium>
+  $<eqn:mA-commuting-equilibrium>
+
+We can now define the competitive equilibrium. Given the model parameters ${beta, theta}$, the vector of residential populations $bold(R)$, and the exogenous location characteristics ${overline(bold(K)), bold(A), bold(kappa)}$, the equilibrium is a vector of quantities $bold(L)$ and a vector of prices $bold(w)$ that satisfy @eqn:mA-commute-probability, @eqn:mA-commuting-clearing, and @eqn:mA-commuting-equilibrium.
 
 ```
 This section does not discuss the existence and uniqueness of the equilibrium. I will add sections on these topics in the future. As a note of caution, we cannot compare welfare between the two models, given the different utility functions.
@@ -147,7 +149,7 @@ $
   &= sum_n pi_(i n | i) EE[cal(U)_(i n omega) | n^*_(i omega) = n] \
   &= sum_n pi_(i n | i) [Gamma(1 - 1 / theta) Phi_i^(1 / theta)] \
   &= Gamma(1 - 1 / theta) Phi_i^(1 / theta).
-$<mA-utility>
+$<eqn:mA-utility>
 These derivations are used widely across the literature and usually relegated to an appendix or omitted entirely. Researchers will appeal to the standard results from discrete choice, as the steps are usually similar or identical across models. I would encourage you to derive these results yourself once or twice before appealing to the standard results.#footnote[Are any of the steps above unclear? Please let me know and I can add more exposition.]
 
 === Counterfactual Equilibria
@@ -160,8 +162,8 @@ This representation leads us to "exact hat algebra," a popular method to model a
 $
   L_n^0 hat(L)_n &= (sum_(i in cal(L)) (pi_(i n | i)^0 R_i^0) (hat(pi)_(i n | i) hat(R)_i)) \
   arrow.r.double.long ((hat(A)_n) / hat(w)_n)^(1 / (1 - beta)) &= (sum_(i in cal(L)) (pi_(i n | i)^0 R_i^0) (hat(pi)_(i n | i) hat(R)_i)) / L_n^0.
-$<eqn:exact-hat-clearing>
-We can use @eqn:commute-probability to write
+$<eqn:mA-exact-hat-clearing>
+We can use @eqn:mA-commute-probability to write
   $
     hat(pi)_(i n | i)
     &= hat(phi)_(i n) hat(Phi)_i^(-1), \
@@ -169,7 +171,7 @@ We can use @eqn:commute-probability to write
     &eq.def (hat(w)_n / hat(kappa)_(i n))^(theta) \
     "and" hat(Phi)_i
     &eq.def sum_(k in cal(L)) pi_(i k | i)^(0) hat(phi)_(i k)
-  $<eqn:exact-hat-pi>
+  $<eqn:mA-exact-hat-pi>
 The substantive piece of this expression is $hat(Phi)_i$. We derive it below:
   $
     hat(Phi)_i
@@ -194,12 +196,12 @@ The substantive piece of this expression is $hat(Phi)_i$. We derive it below:
     )
     hat(phi)_(i k),
   $
-where we have used @eqn:commute-probability to substitute in for $pi_(i k | i)^(0)$ (see the portions colored #text(red)[red]). From @eqn:exact-hat-pi, we can then express the change in welfare
+where we have used @eqn:mA-commute-probability to substitute in for $pi_(i k | i)^(0)$ (see the portions colored #text(red)[red]). From @eqn:mA-exact-hat-pi, we can then express the change in welfare
   $
     hat(U)_i = hat(Phi)_i^(1 / theta).
   $
 
-We now combine @eqn:exact-hat-clearing and @eqn:exact-hat-pi to obtain
+We now combine @eqn:mA-exact-hat-clearing and @eqn:mA-exact-hat-pi to obtain
   $
     ((hat(A)_n) / hat(w)_n)^(1 / (1 - beta))
     &= [
@@ -207,8 +209,8 @@ We now combine @eqn:exact-hat-clearing and @eqn:exact-hat-pi to obtain
       (pi_(i n | i)^0 R_i^0 hat(R)_i (hat(w)_n slash hat(kappa)_(i n))^(theta)) /
       (sum_(k in cal(L)) pi_(i k | i)^(0) (hat(w)_k slash hat(kappa)_(i k))^(theta))
     ] 1 / L_n^0.
-  $<eqn:exact-hat-combined>
-What does this characterization of a counterfactual equilibria buy us? If we express a counterfactual as a set of proportional changes to the parameter values ${hat(bold(A)), hat(bold(kappa)), hat(bold(R))}$, then we only need data on initial conditional commuting probabilities $bold(pi)^0$, workplace population $bold(L)^0$, and residential population $bold(R)^0$ to solve for the proportional changes in wages $hat(bold(w))$ (using @eqn:exact-hat-combined) and conditional commuting probabilities $hat(bold(pi))$ (using @eqn:exact-hat-pi).
+  $<eqn:mA-exact-hat-combined>
+What does this characterization of a counterfactual equilibria buy us? If we express a counterfactual as a set of proportional changes to the parameter values ${hat(bold(A)), hat(bold(kappa)), hat(bold(R))}$, then we only need data on initial conditional commuting probabilities $bold(pi)^0$, workplace population $bold(L)^0$, and residential population $bold(R)^0$ to solve for the proportional changes in wages $hat(bold(w))$ (using @eqn:mA-exact-hat-combined) and conditional commuting probabilities $hat(bold(pi))$ (using @eqn:mA-exact-hat-pi).
 
 Inspired by this representation, we define
   $
@@ -281,12 +283,12 @@ following the notation from Model A.
 Each location $i$ has a fixed stock of land available for rent $H_i$. Landlords face no costs and spend all of their rental income on the final good to ensure goods market clearing. Let $overline(nu)_i$ denote the average income of residents in location $i$. We can than express _aggregate_ income for resident in location $i$
   $
     overline(nu)_i R_i &= sum_(n in cal(L)) pi_(i n) w_n overline(R).
-  $
+  $<eqn:mB-agg-income>
 Land market clearing implies that housing expenditure (given by utility maximization) must equal landlord income in neighborhood $i$:
   $
     underbrace((1 - alpha) overline(nu)_i R_i, "Housing Expenditure")
     &= underbrace(H_i q_i, "Landlord Income")
-  $
+  $<eqn:mB-land-clearing>
 
 === Firms
 We maintain the same set of assumptions on the firm side as in Model A. This yields the wage equation and labor demand
@@ -295,9 +297,6 @@ We maintain the same set of assumptions on the firm side as in Model A. This yie
     arrow.r.double.long
     L_n &= ((beta A_n) / w_n)^(1 / (1 - beta)).
   $<eqn:mB-wages>
-
-  
-
 
 // First, the unconditional commuting probability is
 
@@ -312,7 +311,9 @@ We maintain the same set of assumptions on the firm side as in Model A. This yie
 We now use the unconditional commuting probability in @eqn:mB-pi to define the commuting market clearing condition:
   $
     L_n = sum_(i in cal(L)) pi_(i n) overline(R).
-  $
+  $<eqn:mB-commuting-clearing>
+
+We can now define the competitive equilibrium. Given the model parameters ${alpha, beta, theta}$, the residential population $overline(R)$, and the exogenous location characteristics ${bold(H), bold(A), bold(B), bold(kappa)}$, the equilibrium is a vector of quantities ${bold(L), bold(R)}$ and a vector of prices ${bold(w), bold(q)}$ that satisfy @eqn:mB-pi, @eqn:mB-agg-income, @eqn:mB-land-clearing, @eqn:mB-wages, and @eqn:mB-commuting-clearing.
 
 === Welfare
 Given free residential mobility, utility is now equalized across space:

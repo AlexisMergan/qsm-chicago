@@ -5,14 +5,14 @@
   set heading(numbering: "1.1.")
   set figure.caption(position: top)
 
-  // Title row.
+  // Title row
   align(center)[
     #block(text(weight: 700, 1.75em, title))
     #v(1em, weak: true)
     #date
   ]
 
-  // Author information.
+  // Author information
   pad(
     top: 0.5em,
     bottom: 0.5em,
@@ -24,7 +24,7 @@
     ),
   )
 
-  // Main body.
+  // Main body
   set par(justify: true)
 
   body
