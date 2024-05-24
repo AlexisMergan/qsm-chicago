@@ -2,7 +2,7 @@
   set document(author: authors, title: title)
   set page(paper: "us-letter", numbering: "1", number-align: center)
   set text(font: "Linux Libertine", lang: "en")
-  set heading(numbering: "1.1.")
+  set heading(numbering: "I.a.")
   set figure.caption(position: top)
 
   // Title row

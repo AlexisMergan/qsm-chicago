@@ -1,8 +1,8 @@
-#import("typst/template_paper.typ"): *
-#import("typst/common_commands.typ"): *
+#import "typst/template_paper.typ": *
+#import "typst/common_commands.typ": *
 
-#set math.equation(numbering: "(1)")
 #set figure.caption(position: top)
+#set math.equation(numbering: "(1)")
 
 #show raw.where(block: true): block.with(
   fill: luma(250),
@@ -13,21 +13,38 @@
 
 #show quote: set align(center)
 
+#set enum(indent: 5pt)
+#set list(indent: 5pt)
+#set par(
+  leading: 1em,
+  first-line-indent: 1em,
+  justify: true,
+)
+#show ref: set text(blue)
+#show ref: underline
+#show link: set text(blue)
+#show link: underline
+
+#let title = [Quantitative Spatial Models in Economics: A Simple Commuting Model of Chicago]
+#let author = "Connacher Murphy"
+
 #show: paper.with(
-  title: [Quantitative Spatial Models in Economics: A Simple Commuting Model of Chicago],
+  title: title,
   authors: (
-    "Connacher Murphy",
+    author,
   ),
   date: datetime.today().display("[month repr:long] [day], [year]"),
 )
 
-#align(center)[
-  ```
-  This is a live document and subject to change.
-  ```
-]
-
-#pad(x: 20%)[
+#pad(
+  left: 10%,
+  right: 10%
+)[
+  #set par(
+    leading: 1em,
+    first-line-indent: 0em,
+    justify: true,
+  )
   #quote(
     block: true,
     attribution: [Carl Sandburg]
@@ -40,13 +57,11 @@
 
     Come and show me another city with lifted head singing so proud to be alive and coarse and strong and cunning.
   ]
-]
 
-#align(center)[
-  *Abstract*
-]
+  #align(center)[*Abstract*]
 
-This repository demonstrates the basics of conducting economics research with quantitative spatial models (QSMs). I derive and calibrate a simple quantitative spatial model of Chicago and conduct two counterfactual exercises. I then repeat this process for a richer model and compare the results. This exercise is intended for pedagogical purposes. To this end, the models below are simplified versions of QSMs commonly used in economics research. I welcome any comments and questions.
+  This repository demonstrates the basics of conducting economics research with quantitative spatial models (QSMs). I derive and calibrate a simple quantitative spatial model of Chicago and conduct two counterfactual exercises. I then repeat this process for a richer model and compare the results. This exercise is intended for pedagogical purposes. To this end, the models below are simplified versions of QSMs commonly used in economics research. I welcome any comments and questions.
+]
 
 = Introduction
 The models presented below might strike you as restrictive and unrealistic. I have opted for an especially simple pair of models to demonstrate the basic mechanics of quantitative spatial models. This document will hopefully make the richer models of the literature more accessible. All quantitative spatial models (indeed, all economic models) necessarily abstract from certain features of reality. Results must always be interpreted in light of a researcher's modeling choices and the appropriateness of these choices for the research question at hand.
@@ -116,12 +131,7 @@ We can substitute @eqn:mA-commute-probability and @eqn:mA-wages into this expres
 
 We can now define the competitive equilibrium. Given the model parameters ${beta, theta}$, the vector of residential populations $bold(R)$, and the exogenous location characteristics ${overline(bold(K)), bold(A), bold(kappa)}$, the equilibrium is a vector of quantities $bold(L)$ and a vector of prices $bold(w)$ that satisfy @eqn:mA-commute-probability, @eqn:mA-commuting-clearing, and @eqn:mA-commuting-equilibrium.
 
-```
-This section does not discuss the existence and uniqueness of the equilibrium. I will add sections on these topics in the future. As a note of caution, we cannot compare welfare between the two models, given the different utility functions.
-```
-
-// CM: add welfare
-// CM: existence and uniqueness
+#cite(<alvarez_lucas_2007>, form: "prose") establish conditions for the existence and uniqueness of the equilibrium in #cite(<eaton_kortum_2002>, form: "prose"). They use an excess demand representation similar to @eqn:mA-commuting-equilibrium.
 
 === Welfare
 We can compute expected utility by considering indirect utility. Expected utility for an agent residing in location $i$ will be given by the expected utility in their most attractive workplace:
@@ -239,11 +249,7 @@ We can use this vector-valued function $bold(cal(Z))(tilde(bold(w)))$ to compute
   + *return* $tilde(bold(w))^s$
 ]
 
-```
-It would be appropriate to discuss zero flows here. I will do so in the future.
-```
-
-// CM: add a discussion of zero flows
+As a word of caution, this model (and the model below) will rationalize a bilateral commuting flow of zero with an infinite commuting cost. The counterfactual exercises considered below will maintain this zero bilateral flow (even the counterfactual reduction in commuting costs).
 
 == A Richer Model (Model B)
 We now consider a model with a housing market and residential choice. The mass of agents is denoted $overline(R)$. We no longer fix an agent's residential location.
@@ -315,6 +321,8 @@ We now use the unconditional commuting probability in @eqn:mB-pi to define the c
 
 We can now define the competitive equilibrium. Given the model parameters ${alpha, beta, theta}$, the residential population $overline(R)$, and the exogenous location characteristics ${bold(H), bold(A), bold(B), bold(kappa)}$, the equilibrium is a vector of quantities ${bold(L), bold(R)}$ and a vector of prices ${bold(w), bold(q)}$ that satisfy @eqn:mB-pi, @eqn:mB-agg-income, @eqn:mB-land-clearing, @eqn:mB-wages, and @eqn:mB-commuting-clearing.
 
+Again, we can look to #cite(<alvarez_lucas_2007>, form: "prose") to establish conditions for the existence and uniqueness of the equilibrium.
+
 === Welfare
 Given free residential mobility, utility is now equalized across space:
 $
@@ -372,23 +380,21 @@ We combine the expressions from above and define
 ]
 
 = Data and Calibration
-```
-I will discuss the data and parameter choices used to generate the results below. The code to generate the data is available upon request and will be incorporated into a future version of this repository.
-```
+I measure commuting flows with the Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES).#footnote[See https://lehd.ces.census.gov/data/.] We consider all jobs and restrict to workers who both live and work within the boundaries of Chicago. We use commuting flows from 2019 to remove any influence of the COVID-19 Pandemic. We aggregate the block-level commuting flows from LODES to the 77 neighborhoods of Chicago using community area boundaries from the City of Chicago.#footnote[See https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6.] While the City of Chicago uses the term 'community area,' we refer to these units as 'neighborhoods.' We match block centroids to neighborhood boundaries. We can use these data to recover (un)conditional commuting probabilities and the workplace and residential population data required in our counterfactual simulations.#footnote[Please contact me if you would like the code to generate these data.]
 
 = Counterfactual Exercises
-```
-I plan to summarize equilibrium changes for a larger set of endogenous variables and a discussion of the differences between the two models.
-```
-
-I compare the equilibrium impact of two parameter shocks: a 5% increase in productivity in the Far Southeast Side and a 5% reduction in commuting costs from the Far Southeast to Chicago's employment core (the Loop, Near North Side, and Near West Side). For interpretation, it is important to note that the $hat(bold(w))$ reports the changes in wages _paid_ to agents working in a given location.
+I compare the equilibrium impact of two parameter shocks: a 5% increase in productivity in the Far Southeast Side (FSE) and a 5% reduction in commuting costs from the FSE to Chicago's employment core (the Loop, Near North Side, and Near West Side). I show these neighborhoods in @fig:shock-map. It is important to note that the $hat(bold(w))$ reports the changes in wages _paid_ to agents working in a given location.
 
 #figure(caption: [Impacted Neighborhoods])[
   #image("out/shock_map.png", width: 50%)
 ]<fig:shock-map>
 
 == Wages
-#figure(caption: [$hat(bold(w))$])[
+I first report the change in wages paid by neighborhood in @fig:w-hat and @fig:w-hat-exclude; the latter excludes the far southeast for readability. The results are qualitatively and quantitatively similar for models A and B. The productivity shock substantially increases wages in the FSE. Other neighborhoods, especially those closest to the FSE, see small increases in wages, owing to a reduction in labor supplied to these neighborhoods.
+
+The transport cost shock induces an increase in wages in the FSE and a decrease in wages in the employment core. Workers living in the FSE now have improved access to the employment core, leading to increased commuting from the FSE to the core. As a result of these labor supply changes, wages fall in the core and increase in the FSE.
+
+#figure(caption: [$hat(bold(w))$, All Neighborhoods])[
   #stack(
     dir: ltr,
     image("out/w_hat_prod_mA.png", width: 50%),
@@ -401,7 +407,7 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
   )
 ]<fig:w-hat>
 
-#figure(caption: [$hat(bold(w))$])[
+#figure(caption: [$hat(bold(w))$, Excluding Far Southeast])[
   #stack(
     dir: ltr,
     image("out/w_hat_prod_mA_exclude.png", width: 50%),
@@ -415,7 +421,9 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
 ]<fig:w-hat-exclude>
 
 == Rents
-#figure(caption: [$hat(bold(q))$])[
+Next, I report changes in rents in @fig:q-hat and @fig:q-hat-exclude. We do not include rents in model A, so we only report results for model B. The productivity shock leads to smoother changes in rents across space than the transport cost shock. Under the productivity shock, residents can take advantage of increased wages in the FSE by moving to an adjacent neighborhood. However, with the transport cost shock, only FSE residents can access the transport cost reduction, creating a discontinuity in rent changes at the FSE border.
+
+#figure(caption: [$hat(bold(q))$, All Neighborhoods])[
   #stack(
     dir: ltr,
     image("out/q_hat_prod_mB.png", width: 50%),
@@ -423,7 +431,7 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
   )
 ]<fig:q-hat>
 
-#figure(caption: [$hat(bold(q))$])[
+#figure(caption: [$hat(bold(q))$, Excluding Far Southeast])[
   #stack(
     dir: ltr,
     image("out/q_hat_prod_mB_exclude.png", width: 50%),
@@ -432,7 +440,11 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
 ]<fig:q-hat-exclude>
 
 == Labor Supply
-#figure(caption: [$hat(bold(L))$])[
+I plot changes in labor supply in @fig:L-hat and @fig:L-hat-exclude. In both models, the productivity shock produces a substantial increase in labor supplied to the FSE. Without residential resorting (model A), neighborhoods closer to but outside the FSE see larger reductions in labor supply than neighborhoods further away, since nearby residents have lower commuting costs to the FSE.
+
+The transport cost shock reduces labor supplied to the FSE, as FSE residents now have better access to the employment core. This reduction is partially mitigated by increased labor supply to the FSE from adjacent neighborhoods.
+
+#figure(caption: [$hat(bold(L))$, All Neighborhoods])[
   #stack(
     dir: ltr,
     image("out/L_hat_prod_mA.png", width: 50%),
@@ -445,7 +457,7 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
   )
 ]<fig:L-hat>
 
-#figure(caption: [$hat(bold(L))$])[
+#figure(caption: [$hat(bold(L))$, Excluding Far Southeast])[
   #stack(
     dir: ltr,
     image("out/L_hat_prod_mA_exclude.png", width: 50%),
@@ -459,24 +471,28 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
 ]<fig:L-hat-exclude>
 
 == Residential Population
-#figure(caption: [$hat(bold(R))$])[
+Since model B allows for changes in residential population, we report these changes in @fig:R-hat and @fig:R-hat-exclude. As described in the rents section, the productivity shock induces smoother changes in residential population.
+
+#figure(caption: [$hat(bold(R))$, All Neighborhoods])[
   #stack(
     dir: ltr,
     image("out/R_hat_prod_mB.png", width: 50%),
     image("out/R_hat_trans_mB.png", width: 50%),
   )
-]<fig:q-hat>
+]<fig:R-hat>
 
-#figure(caption: [$hat(bold(R))$])[
+#figure(caption: [$hat(bold(R))$, Excluding Far Southeast])[
   #stack(
     dir: ltr,
     image("out/R_hat_prod_mB_exclude.png", width: 50%),
     image("out/R_hat_trans_mB_exclude.png", width: 50%),
   )
-]<fig:q-hat-exclude>
+]<fig:R-hat-exclude>
 
 == Welfare
-#figure(caption: [$hat(bold(U))$])[
+Lastly, I report changes in welfare in @fig:U-hat and @fig:U-hat-exclude. Residential mobility (model B) guarantees utility equalization across space, so we see no spatial variation. Accordingly, I only report changes for model A. Again, the productivity shock produces a smoother gradient of utility changes, since nearby residents can take advantage of increased wages in the FSE. The transport cost shock yields a large discontinuity in utility changes at the FSE border. Residents in the employment core and adjacent neighborhoods see decreases in utility due to the increased labor supply to the employment core. Residents adjacent to the FSE see small increases in utility, as some residents can take advantage of reduced labor supply in the FSE.
+
+#figure(caption: [$hat(bold(U))$, All Neighborhoods])[
   #stack(
     dir: ltr,
     image("out/U_hat_prod_mA.png", width: 50%),
@@ -484,7 +500,7 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
   )
 ]<fig:U-hat>
 
-#figure(caption: [$hat(bold(U))$])[
+#figure(caption: [$hat(bold(U))$, Excluding Far Southeast])[
   #stack(
     dir: ltr,
     image("out/U_hat_prod_mA_exclude.png", width: 50%),
@@ -504,6 +520,7 @@ I compare the equilibrium impact of two parameter shocks: a 5% increase in produ
       "typst/redding_rossi-hansberg_2017.bib",
       "typst/eaton_kortum_2002.bib",
       "typst/train_2003.bib",
+      "typst/alvarez_lucas_2007.bib"
     ),
     style: "chicago-author-date"
 )
@@ -517,4 +534,5 @@ cp ~/projects/references/owens_ea_2020.bib ~/projects/qsm-chicago/typst
 cp ~/projects/references/redding_rossi-hansberg_2017.bib ~/projects/qsm-chicago/typst
 cp ~/projects/references/eaton_kortum_2002.bib ~/projects/qsm-chicago/typst
 cp ~/projects/references/train_2003.bib ~/projects/qsm-chicago/typst
+cp ~/projects/references/alvarez_lucas_2007.bib ~/projects/qsm-chicago/typst
 ----------------------------------------------------------*/
