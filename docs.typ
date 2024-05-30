@@ -64,9 +64,9 @@
 ]
 
 = Introduction
-The models presented below might strike you as restrictive and unrealistic. I have opted for an especially simple pair of models to demonstrate the basic mechanics of quantitative spatial models. This document will hopefully make the richer models of the literature more accessible. All quantitative spatial models (indeed, all economic models) necessarily abstract from certain features of reality. Results must always be interpreted in light of a researcher's modeling choices and the appropriateness of these choices for the research question at hand.
+The models presented below might strike you as restrictive and unrealistic. I have opted for an especially simple pair of models to demonstrate the basic mechanics of quantitative spatial models. This document will hopefully make the richer models of the literature more accessible. All quantitative spatial models (indeed, all models) necessarily abstract from certain features of reality. Results must always be interpreted in light of a researcher's modeling choices and the appropriateness of these choices for the research question at hand.
 
-#cite(<ahlfeldt_ea_2015>, form: "prose") and #cite(<monte_ea_2018>, form: "prose") are popular examples of such models and provide a good introduction to the literature. #cite(<redding_rossi-hansberg_2017>, form: "prose") review the literature and common components of economic geography models. Models of economic geography often draw from the seminal work of #cite(<eaton_kortum_2002>, form: "prose") in international trade.
+#cite(<ahlfeldt_ea_2015>, form: "prose") and #cite(<monte_ea_2018>, form: "prose") are popular examples of such models and provide a good introduction to the literature. #cite(<redding_rossi-hansberg_2017>, form: "prose") review the literature and outline the common components of economic geography models. Models of economic geography often draw from the seminal work of #cite(<eaton_kortum_2002>, form: "prose") in international trade.
 
 = Model
 I begin with a simple model of commuting to demonstrate the basic mechanics of a common form of QSM. I then extend this model to include (some) other relevant features of a spatial economy.
@@ -75,17 +75,17 @@ I begin with a simple model of commuting to demonstrate the basic mechanics of a
 Chicago is comprised of discrete neighborhoods $i, n, k, l in cal(L)$. Each location $i$ has a fixed mass $R_i$ of residents.
 
 === Workers
-Each agent inelastically supplies one unit of labor. An agent $omega$ residing in location $i$ and working in location $n$ receives indirect#footnote[I omit the subproblem of utility maximization given location choice for parsimony. Model B will explicitly discuss this subproblem, which nests the subproblem of utility maximization in this model. We can set $alpha = 1$ to see the equivalence.] utility $cal(U)_(n i)$, where
+Each agent inelastically supplies one unit of labor. An agent $omega$ residing in location $i$ and working in location $n$ receives indirect#footnote[I omit the subproblem of utility maximization given location choice for parsimony. Model B will explicitly discuss this subproblem, which nests the subproblem of utility maximization in this model. We can set $alpha = 1$ to see the equivalence.] utility $cal(U)_(i n omega)$, where
   $
     cal(U)_(i n omega) &= (w_n / kappa_(i n)) b_(i n omega).
   $
-$w_n$ is the wage paid in location $n$. $kappa_(i n)$ is a commuting cost of the iceberg form in the units of utility. $b_(i n omega)$ is an idiosyncratic preference shock with a Fréchet distribution. The cumulative distribution function of $b_(i n omega)$ is given by $F_(i n)(b_(i n omega)) = exp(-b_(i n omega)^(-theta))$. $theta$ governs the dispersion of this preference shock.
+$w_n$ is the wage paid in location $n$. $kappa_(i n)$ is a commuting cost of the iceberg form in utility units. $b_(i n omega)$ is an idiosyncratic preference shock with a Fréchet distribution. The cumulative distribution function of $b_(i n omega)$ is given by $F_(i n)(b_(i n omega)) = exp(-b_(i n omega)^(-theta))$. $theta$ governs the dispersion of this preference shock.
 
 A worker $omega$ in location $i$ chooses the workplace that maximizes their indirect utility:
   $
     n_(i omega)^(*) eq.def arg max_(n in cal(L)) cal(U)_(i n omega).
   $
-Since workers differ only in their draws of ${b_(i n omega)}_(i, n in cal(L))$ of preference shocks, we can drop the $omega$ subscript in what follows. The Fréchet-distributed preference shock implies
+Since workers in location $i$ differ only in their draws of ${b_(i n omega)}_(n in cal(L))$ of preference shocks, we can drop the $omega$ subscript in what follows. The Fréchet-distributed preference shock implies
   $
     pi_(i n | i) &eq.def PP{n_(i)^(*) = n}
     &= phi_(i n) Phi_i^(-1), \
@@ -95,7 +95,7 @@ Since workers differ only in their draws of ${b_(i n omega)}_(i, n in cal(L))$ o
     &eq.def sum_(k in cal(L)) phi_(i k).
   $<eqn:mA-commute-probability>
 
-#cite(<train_2003>, form: "prose"), especially the first three chapters, is an excellent resource on discrete choice models. If you are unfamiliar with the result in @eqn:mA-commute-probability, I recommend starting there. You can access the book at #link("https://eml.berkeley.edu/books/choice2.html")[https://eml.berkeley.edu/books/choice2.html].#footnote[I welcome your feedback. Would it be useful to include the derivation of @eqn:mA-commute-probability here?]
+#cite(<train_2003>, form: "prose"), especially the first three chapters, is an excellent resource on discrete choice models. If you are unfamiliar with the result in @eqn:mA-commute-probability, I recommend starting there. You can access the book #link("https://eml.berkeley.edu/books/choice2.html")[here].#footnote[I welcome your feedback. Would it be useful to include the derivation of @eqn:mA-commute-probability here?]
 
 // CM: add a discrete choice citation
 
@@ -110,13 +110,13 @@ where $tilde(A)_n$ is a productivity parameter, $L_n$ is labor input, and $K_n$ 
   $
     Y_n = A_n L_n^beta,
   $
-where $A_n = tilde(A)_n overline(K)_n^(1 - beta)$. These perfectly competitive firms will pay workers their marginal product; wage and labor demand in neighborhood $n$ are given by
+where $A_n = tilde(A)_n overline(K)_n^(1 - beta)$. These perfectly competitive firms will pay workers their marginal product; wage and labor demand in neighborhood $n$ are thus given by
   $
     w_n &= beta A_n L_n^(beta - 1) \
     arrow.r.double.long
     L_n &= ((beta A_n) / w_n)^(1 / (1 - beta)).
   $<eqn:mA-wages>
-We assume that capital owners spend all their rental income in the city so that goods market clearing still holds. This model shuts down a potentially important margin of adjustment: changing capital stocks. We could also consider firms that compete in the same land markets as residents (we introduce a residential land market in model B). Again, results must always be interpreted in light of such modeling choices and their appropriateness for the research question.
+We assume that capital owners spend all their rental income in the city so that goods market clearing still holds. This model shuts down an important margin of adjustment: changing capital stocks. We could also consider firms that compete in the same land markets as residents (we introduce a residential land market in model B). Again, results must always be interpreted in light of such modeling choices and their appropriateness for the research question.
 
 === Commuting Equilibrium
 For the commuting market to clear, labor demand in location $n$ must equal labor supply to location $n$ across all residential locations $i$:
@@ -153,22 +153,22 @@ $
   &= 1 / pi_(i n | i) [pi_(i n | i) exp(-pi_(i n | i)^(-1) b^(-theta)) |_0^(u(kappa_(i n) / w_n))]  \
   &= exp(-Phi_i u^(-theta)),
 $
-which is a Fréchet distribution with shape $theta$ and scale parameter $Phi_i^(1 / theta)$; this result is part of the Fréchet magic! We can then use the expression for the mean of a Fréchet distribution to compute the expected utility of an agent residing in location $i$:
+which is a Fréchet distribution with shape $theta$ and scale parameter $Phi_i^(1 / theta)$; herein lies Fréchet magic! We can then use the expression for the mean of a Fréchet distribution to compute the expected utility of an agent residing in location $i$:
 $
   U_i
   &= sum_n pi_(i n | i) EE[cal(U)_(i n omega) | n^*_(i omega) = n] \
   &= sum_n pi_(i n | i) [Gamma(1 - 1 / theta) Phi_i^(1 / theta)] \
   &= Gamma(1 - 1 / theta) Phi_i^(1 / theta).
 $<eqn:mA-utility>
-These derivations are used widely across the literature and usually relegated to an appendix or omitted entirely. Researchers will appeal to the standard results from discrete choice, as the steps are usually similar or identical across models. I would encourage you to derive these results yourself once or twice before appealing to the standard results.#footnote[Are any of the steps above unclear? Please let me know and I can add more exposition.]
+These derivations are used widely across the literature and usually relegated to an appendix or omitted entirely. Researchers will appeal to the standard results from discrete choice, as the steps are usually similar or identical across models. I would encourage you to derive these results yourself once or twice before appealing to the standard results.#footnote[Are any of the steps above unclear? Please let me know and I can clarify the exposition.]
 
 === Counterfactual Equilibria
-I will denote the vector-collection of a variable $x_i$ over all locations with boldface: ${x_i}_(i in cal(L)) eq.def bold(x)$.
+// I will denote the vector-collection of a variable $x_i$ over all locations with boldface: ${x_i}_(i in cal(L)) eq.def bold(x)$.
 We consider a baseline equilibrium ${bold(w)^0, bold(pi)^0}$ for parameters ${bold(A)^0, bold(kappa)^0, bold(R)^0}$ and a counterfactual equilibrium ${bold(w)^prime, bold(pi)^prime}$ for parameters ${bold(A)^prime, bold(kappa)^prime, bold(R)^prime}$. We denote proportional changes with hats, e.g.,
   $
     hat(w)_n = (w_n^prime) / w_n^0 arrow.r.double.long w_n^0 hat(w)_n = w_n^prime.
   $
-This representation leads us to "exact hat algebra," a popular method to model and summarize counterfactual equilibria. We start by expressing the market clearing condition for the counterfactual equilibrium and then substitute in @eqn:mA-wages:
+This representation leads us to 'exact hat algebra,' a popular method to model and summarize counterfactual equilibria. We start by expressing the market clearing condition for the counterfactual equilibrium and then substitute in @eqn:mA-wages:
 $
   L_n^0 hat(L)_n &= (sum_(i in cal(L)) (pi_(i n | i)^0 R_i^0) (hat(pi)_(i n | i) hat(R)_i)) \
   arrow.r.double.long ((hat(A)_n) / hat(w)_n)^(1 / (1 - beta)) &= (sum_(i in cal(L)) (pi_(i n | i)^0 R_i^0) (hat(pi)_(i n | i) hat(R)_i)) / L_n^0.
@@ -206,7 +206,7 @@ The substantive piece of this expression is $hat(Phi)_i$. We derive it below:
     )
     hat(phi)_(i k),
   $
-where we have used @eqn:mA-commute-probability to substitute in for $pi_(i k | i)^(0)$ (see the portions colored #text(red)[red]). From @eqn:mA-exact-hat-pi, we can then express the change in welfare
+where we have used @eqn:mA-commute-probability to substitute in $pi_(i k | i)^(0)$ (see the portions colored #text(red)[red]). From @eqn:mA-exact-hat-pi, we can then express the change in welfare
   $
     hat(U)_i = hat(Phi)_i^(1 / theta).
   $
@@ -258,19 +258,19 @@ We now consider a model with a housing market and residential choice. The mass o
 Utility for an agent $omega$ residing in location $i$ and working in location $n$ is given by
   $
     U_(i n omega)
-    = (c_(i n omega) / alpha)^alpha (h_(i n omega) / (1 - alpha))^(1 - alpha) b_(i n omega) / kappa_(i n)
+    = (c_(i n omega) / alpha)^alpha (h_(i n omega) / (1 - alpha))^(1 - alpha) b_(i n omega) / kappa_(i n),
   $<eqn:mB-utility>
 where $c_(i n omega)$ is final good consumption, $h_(i n omega)$ is housing consumption, and $F_(i n)(b_(i n omega)) &= exp(-B_(i n) b_(i n omega)^(-theta))$. We've added a parameter $B_(i n)$ that governs average utility for agents that live in location $i$ and work in location $n$. The Cobb-Douglas form of @eqn:mB-utility implies that agents spend a constant fraction $alpha$ of their income on the final good and $(1 - alpha)$ on housing. The price of the final good is again $1$, and we denote the price of housing in location $i$ by $q_i$. Accordingly, indirect utility for an agent $omega$ residing in location $i$ and working in location $n$ with wage $w_n$ is given by
   $
     cal(U)_(i n omega)
-    = ((alpha w_n) / alpha)^alpha ((alpha w_n) / (q_i (1 - alpha)))^(1 - alpha) b_(i n omega) / kappa_(i n)
+    = ((alpha w_n) / alpha)^alpha (((1 - alpha) w_n) / (q_i (1 - alpha)))^(1 - alpha) b_(i n omega) / kappa_(i n)
     = ((w_(n) q_i^(alpha - 1)) / kappa_(i n)) b_(i n omega).
   $
 A worker $omega$ now chooses both a residence and workplace:
   $
     {i, n}_(omega)^(*) eq.def arg max_(i,n in cal(L)) cal(U)_(i n omega).
   $
-Similar to before, the Fréchet-distributed preference shock implies the following expression for the _unconditional_ residential and commuting probability
+Now, the Fréchet-distributed preference shock implies the following expression for the _unconditional_ residential and commuting probabilities
   $
     pi_(i n) & eq.def PP{{i, n}^(*) = {i, n}}
     = phi_(i n) Phi^(-1), \
@@ -286,7 +286,7 @@ In what follows, it will be useful to define the mass of residents in each locat
 following the notation from Model A.
 
 === Housing Market
-Each location $i$ has a fixed stock of land available for rent $H_i$. Landlords face no costs and spend all of their rental income on the final good to ensure goods market clearing. Let $overline(nu)_i$ denote the average income of residents in location $i$. We can than express _aggregate_ income for resident in location $i$
+Each location $i$ has a fixed stock of land available for rent $H_i$. Landlords face no costs and spend all of their rental income on the final good to ensure goods market clearing. Let $overline(nu)_i$ denote the average income of residents in location $i$. We can than express _aggregate_ income for residents in location $i$
   $
     overline(nu)_i R_i &= sum_(n in cal(L)) pi_(i n) w_n overline(R).
   $<eqn:mB-agg-income>
@@ -297,7 +297,7 @@ Land market clearing implies that housing expenditure (given by utility maximiza
   $<eqn:mB-land-clearing>
 
 === Firms
-We maintain the same set of assumptions on the firm side as in Model A. This yields the wage equation and labor demand
+We maintain the same set of assumptions on the firm side as in Model A. This yields the following wage equation and labor demand:
   $
     w_n &= beta A_n L_n^(beta - 1) \
     arrow.r.double.long
@@ -380,10 +380,12 @@ We combine the expressions from above and define
 ]
 
 = Data and Calibration
-I measure commuting flows with the Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES).#footnote[See https://lehd.ces.census.gov/data/.] We consider all jobs and restrict to workers who both live and work within the boundaries of Chicago. We use commuting flows from 2019 to remove any influence of the COVID-19 Pandemic. We aggregate the block-level commuting flows from LODES to the 77 neighborhoods of Chicago using community area boundaries from the City of Chicago.#footnote[See https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6.] While the City of Chicago uses the term 'community area,' we refer to these units as 'neighborhoods.' We match block centroids to neighborhood boundaries. We can use these data to recover (un)conditional commuting probabilities and the workplace and residential population data required in our counterfactual simulations.#footnote[Please contact me if you would like the code to generate these data.]
+I measure commuting flows with the Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES).#footnote[Source: #link("https://lehd.ces.census.gov/data/")[Census].] We consider all jobs and restrict to workers who both live and work within the boundaries of Chicago. We use commuting flows from 2019 to remove any influence of the COVID-19 Pandemic. We aggregate the block-level commuting flows from LODES to the 77 neighborhoods of Chicago using community area boundaries from the City of Chicago.#footnote[Source: #link("https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6")[City of Chicago].] While the City of Chicago uses the term 'community area,' we refer to these units as 'neighborhoods.' We match block centroids to neighborhood boundaries. We can use these data to recover (un)conditional commuting probabilities and the workplace and residential population data required in our counterfactual simulations.#footnote[Please contact me if you would like the code to generate these data.]
+
+Model B requires wages by workplace in the initial equilibrium. The LODES data report the proportion of jobs with monthly earnings (i) less than $\$1,250$ per month, (ii) $\$1,250$ to $\$3,333$ per month, and (iii) more than $\$3,333$ per month. We use 2019 ACS 5-year data from IPUMS to measure average monthly earnings in each of these wage bins.#footnote[Source: #link("https://usa.ipums.org/usa/index.shtml")[IPUMS]. It is important to note that we are abstracting away from any worker heterogeneity in these models.] We then calculate average wages by workplace using the proportions of jobs in each wage bin from LODES.
 
 = Counterfactual Exercises
-I compare the equilibrium impact of two parameter shocks: a 5% increase in productivity in the Far Southeast Side (FSE) and a 5% reduction in commuting costs from the FSE to Chicago's employment core (the Loop, Near North Side, and Near West Side). I show these neighborhoods in @fig:shock-map. It is important to note that the $hat(bold(w))$ reports the changes in wages _paid_ to agents working in a given location.
+I compare the equilibrium impact of two parameter shocks: a 5% increase in productivity in the Far Southeast Side (FSE) and a 5% reduction in commuting costs from the FSE to Chicago's employment core, a contiguous region of 7 neighborhoods that hosts 67% of employment. I show these neighborhood clusters in @fig:shock-map. It is important to note that the $hat(bold(w))$ reports the changes in wages _paid_ to agents working in a given location.
 
 #figure(caption: [Impacted Neighborhoods])[
   #image("out/shock_map.png", width: 50%)
@@ -507,6 +509,12 @@ Lastly, I report changes in welfare in @fig:U-hat and @fig:U-hat-exclude. Reside
     image("out/U_hat_trans_mA_exclude.png", width: 50%),
   )
 ]<fig:U-hat-exclude>
+
+#set par(
+  leading: 1em,
+  first-line-indent: 0em,
+  justify: true,
+)
 
 // Model B:
 // Productivity: 1.000783025244706
